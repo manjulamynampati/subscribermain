@@ -4,16 +4,15 @@ import com.model.SubscriberModel;
 import com.model.EventData;
 import com.model.SubscribeRequest;
 import com.service.SubscriberService;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +40,7 @@ public class SubscriberController {
     private String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
 
     private static int subscriberId = 0;
+    RestTemplate restTemplate = new RestTemplate();
 
 
 
@@ -56,31 +56,19 @@ public class SubscriberController {
             String appendedUrl = brokerUrl + "/getPublishers";
             System.out.println("Appended URL in : " + appendedUrl);
 
-            URL url = new URL(appendedUrl);
+            ResponseEntity<List<String>> responseEntity = restTemplate.exchange(
+                    brokerUrl, HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<String>>() {});
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
 
-            int responseCode = connection.getResponseCode();
-            System.out.println("Response code: " + responseCode);
-
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    publisherList.add(line.replaceAll("[^a-zA-Z0-9]", ""));
-                }
-                reader.close();
-                System.out.println("Publishers list from Broker: " + publisherList);
-
-                for(String pub : publisherList){
-                    System.out.println("Publishers from publisherList are: " + pub);
+                publisherList = responseEntity.getBody();
+                for (String pub : publisherList) {
+                    System.out.println("publisher in publisherList: " + pub);
                 }
 
             }else {
-                throw new IOException("Failed to fetch topics. Response Code: " + responseCode);
+                throw new IOException("Failed to fetch publishers. status Code : " + responseEntity.getStatusCode());
             }
 
 
