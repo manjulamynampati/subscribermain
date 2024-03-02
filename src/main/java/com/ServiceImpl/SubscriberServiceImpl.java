@@ -61,6 +61,41 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     }
 
+
+    @Override
+    public HttpStatus unsubscribe(SubscriberModel subscriber, String brokerUrl) {
+
+        System.out.println("=======Unsubscriber details to be sent to broker====");
+        System.out.println("Subscriber id :::::: "+ subscriber.getSubscriberId());
+        System.out.println("selected publishers ::::::: "+ subscriber.getPublishers().toString());
+        System.out.println("subscriber url ::::::: "+ subscriber.getUrl());
+        System.out.println("=======Sending request to broker to subscribe for ===="+ subscriber.getSubscriberId());
+
+        String unsubscribeUrl = brokerUrl + "/unsubscribe";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<SubscriberModel> request = new HttpEntity<>(subscriber, headers);
+
+        try {
+
+            ResponseEntity<HttpStatus> responseEntity = restTemplate.exchange(unsubscribeUrl,
+                    HttpMethod.POST, request, HttpStatus.class);
+
+
+            HttpStatus statusCode = responseEntity.getStatusCode();
+            System.out.println("Received response for unsubscribe from broker with status code: " + statusCode);
+            return statusCode;
+
+        } catch (Exception e) {
+
+            System.out.println("An error occurred while communicating with the broker: " + e.getMessage());
+            throw new RuntimeException("An error occurred while communicating with the broker", e);
+        }
+
+
+    }
+
     @Override
     public HttpStatus notify(EventData event) {
 

@@ -9,5 +9,6 @@ import com.model.SubscriberModel;
 public interface SubscriberService {
 
     public HttpStatus subscribe(SubscriberModel subsriberModel, String brokerUrl) ;
+    public HttpStatus unsubscribe(SubscriberModel subsriberModel, String brokerUrl) ;
     public HttpStatus notify (EventData event);
 }

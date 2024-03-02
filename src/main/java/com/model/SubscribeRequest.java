@@ -7,7 +7,15 @@ public class SubscribeRequest {
 
     private List<String> selectedPublishers;
     private String subscriberUrl;
+    private int subscriberId;
 
+    public int getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
+    }
 
     public List<String> getSelectedPublishers() {
         return selectedPublishers;

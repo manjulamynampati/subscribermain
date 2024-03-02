@@ -3,6 +3,7 @@ package com.controller;
 import com.model.SubscriberModel;
 import com.model.EventData;
 import com.model.SubscribeRequest;
+import com.model.UnsubscribeRequest;
 import com.service.SubscriberService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,7 @@ public class SubscriberController {
     // need to verify this part
     private String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
 
-    private static int subscriberId = 0;
+
     RestTemplate restTemplate = new RestTemplate();
 
 
@@ -86,12 +87,29 @@ public class SubscriberController {
         List<String> selectedPublishers = subscribeRequest.getSelectedPublishers();
 
         SubscriberModel subscriber = new SubscriberModel();
-        int id = incrementId();
-        subscriber.setSubscriberId(id);
+
+        subscriber.setSubscriberId(subscribeRequest.getSubscriberId());
         subscriber.setPublishers(selectedPublishers);
         subscriber.setUrl(subscribeRequest.getSubscriberUrl());
 
         HttpStatus httpStatus = subscriberService.subscribe(subscriber,brokerUrl);
+        System.out.println(httpStatus.value());
+        return String.valueOf(Integer.parseInt(String.valueOf(httpStatus.value())));
+    }
+
+
+    @PostMapping(value = "/unsubscribe")
+    public String unsubscribe(@RequestBody UnsubscribeRequest request) {
+
+        List<String> selectedPublishers = request.getSelectedPublishers();
+
+        SubscriberModel subscriber = new SubscriberModel();
+
+        subscriber.setSubscriberId(request.getSubscriberId());
+        subscriber.setPublishers(selectedPublishers);
+        subscriber.setUrl(request.getUnsubscribeUrl());
+
+        HttpStatus httpStatus = subscriberService.unsubscribe(subscriber,brokerUrl);
         System.out.println(httpStatus.value());
         return String.valueOf(Integer.parseInt(String.valueOf(httpStatus.value())));
     }
@@ -105,8 +123,7 @@ public class SubscriberController {
     }
 
     @GetMapping(value = "/events")
-//    public List<EventData> getAllEvents() {
-    public List<EventData> getAllEvents(@RequestParam(value = "publishers", required = false) List<String> selectedPublishers) {
+    public List<EventData> getAllEvents() {
 
         List<EventData> eventDataList = new ArrayList<>();
         Path path = Paths.get(filePath);
@@ -138,11 +155,9 @@ public class SubscriberController {
                 event.setOccasion(eventDetails[2]);
                 event.setEventLocation(eventDetails[3]);
                 event.setMessage(eventDetails[4]);
+                eventDataList.add(event);
 
-                // Check if the publisherName is in the selectedPublishers list
-                if (selectedPublishers == null || selectedPublishers.contains(event.getPublisherName())) {
-                    eventDataList.add(event);
-                }
+
 
             }
         } catch (IOException e) {
@@ -152,10 +167,7 @@ public class SubscriberController {
         return eventDataList;
     }
 
-    public static int incrementId() {
-        subscriberId++;
-        return subscriberId;
-    }
+
 
 
 

@@ -22,6 +22,8 @@
 
     var getsubscribeUrl = subscriberUrl + '/subscribe';
 
+    const subscriberId = 1; // change accordingly
+
 
     // Function to populate publishers list
     function getPublishers() {
@@ -46,7 +48,9 @@
 
         var data = {
             selectedPublishers: selectedPublishers,
-            subscriberUrl : subscriberUrl
+            subscriberUrl : subscriberUrl,
+            subscriberId : subscriberId
+
         };
 
         // HTTP POST request to the backend
@@ -60,7 +64,9 @@
             .then(response => response.text())
             .then(data => {
                 if (data === "200") {
-                    var eventurl = "/events.html?publishers=" + encodeURIComponent(JSON.stringify(selectedPublishers));
+                    var eventurl = "/events.html?publishers=" + encodeURIComponent(JSON.stringify(selectedPublishers))
+                        + "&subscriberId=" + encodeURIComponent(subscriberId.toString());
+
                     window.location.href = eventurl;
                 } else {
                     alert("Subscription failed!");
