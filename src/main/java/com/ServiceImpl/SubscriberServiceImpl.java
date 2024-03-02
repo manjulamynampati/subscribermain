@@ -41,10 +41,24 @@ public class SubscriberServiceImpl implements SubscriberService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<SubscriberModel> req = new HttpEntity<>(subscriber, headers);
-        ResponseEntity<HttpStatus> responseEntity = restTemplate.exchange(url,
-                HttpMethod.POST, req, HttpStatus.class);
 
-        return responseEntity.getBody();
+        try {
+
+            ResponseEntity<HttpStatus> responseEntity = restTemplate.exchange(url,
+                    HttpMethod.POST, req, HttpStatus.class);
+
+
+            HttpStatus statusCode = responseEntity.getStatusCode();
+            System.out.println("Received response from broker with status code: " + statusCode);
+            return statusCode;
+
+        } catch (Exception e) {
+
+            System.out.println("An error occurred while communicating with the broker: " + e.getMessage());
+            throw new RuntimeException("An error occurred while communicating with the broker", e);
+        }
+
+
     }
 
     @Override
@@ -77,11 +91,16 @@ public class SubscriberServiceImpl implements SubscriberService {
                             System.lineSeparator()).getBytes(),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
+
+            return HttpStatus.OK;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
+
         }
 
-        return HttpStatus.OK;
+
+
     }
 
 }
