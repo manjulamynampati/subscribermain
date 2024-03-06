@@ -7,6 +7,7 @@ public class UnsubscribeRequest {
     private List<String> selectedPublishers;
     private String unsubscribeUrl;
     private int subscriberId;
+    private int port;
 
     public List<String> getSelectedPublishers() {
         return selectedPublishers;
@@ -30,5 +31,13 @@ public class UnsubscribeRequest {
 
     public void setSubscriberId(int subscriberId) {
         this.subscriberId = subscriberId;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }

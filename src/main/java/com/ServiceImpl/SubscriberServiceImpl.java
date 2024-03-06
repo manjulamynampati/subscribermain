@@ -34,6 +34,7 @@ public class SubscriberServiceImpl implements SubscriberService {
         System.out.println("Subscriber id :::::: "+ subscriber.getSubscriberId());
         System.out.println("selected publishers ::::::: "+ subscriber.getPublishers().toString());
         System.out.println("subscriber url ::::::: "+ subscriber.getUrl());
+        System.out.println("subscriber port ::::::: "+ subscriber.getPort());
         System.out.println("=======Sending request to broker to subscribe for ===="+ subscriber.getSubscriberId());
 
         String url = brokerUrl + "/subscribe";
@@ -69,6 +70,7 @@ public class SubscriberServiceImpl implements SubscriberService {
         System.out.println("Subscriber id :::::: "+ subscriber.getSubscriberId());
         System.out.println("selected publishers ::::::: "+ subscriber.getPublishers().toString());
         System.out.println("subscriber url ::::::: "+ subscriber.getUrl());
+        System.out.println("subscriber port :::::: "+ subscriber.getPort());
         System.out.println("=======Sending request to broker to subscribe for ===="+ subscriber.getSubscriberId());
 
         String unsubscribeUrl = brokerUrl + "/unsubscribe";

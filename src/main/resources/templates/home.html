@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber Home Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        #container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #publishersList {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 10px;
+            border: 1px solid #9c27b0;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            display: block;
+            margin-top: 20px;
+            margin-left: 790px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-family: auto;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>List of Publishers</h1>
+
+<div id="container">
+<div id="publishersList">
+    <!-- Publishers checkboxes will be populated here -->
+</div>
+
+<button onclick="subscribe()">Subscribe</button>
+</div>
+
+<script>
+
+    var subscriberUrl = 'http://192.168.4.26:8081';  //need to change for respective subscriber ec2 instance
+
+    var getPublishersUrl = subscriberUrl + '/getPublishers';
+
+    var getsubscribeUrl = subscriberUrl + '/subscribe';
+
+    const subscriberId = 1; // change for second ec2 instance
+    var requestport = 8081; // change for second ec2 instance
+    var requesturl = '192.168.4.26'; // change for second ec2 instance
+
+
+
+    // Function to populate publishers list
+
+    function getPublishers() {
+
+        fetch(getPublishersUrl)
+            .then(response => response.json())
+            .then(data => {
+                var publishersList = document.getElementById('publishersList');
+                data.forEach(function (publisher) {
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'publishers';
+                    checkbox.value = publisher;
+
+                    var label = document.createElement('label');
+                    label.appendChild(document.createTextNode(publisher));
+
+                    publishersList.appendChild(checkbox);
+                    publishersList.appendChild(label);
+                    publishersList.appendChild(document.createElement('br'));
+                });
+            })
+            .catch(error => console.error('Error fetching publishers:', error));
+    }
+
+
+    // Function to handle subscribe button click
+    function subscribe() {
+        var selectedPublishers = [];
+
+        $("input[name='publishers']:checked").each(function () {
+            selectedPublishers.push($(this).val());
+        });
+
+
+        var data = {
+            selectedPublishers: selectedPublishers,
+            subscriberUrl : requesturl,
+            port: requestport,
+            subscriberId : subscriberId
+
+        };
+
+        // HTTP POST request to the backend
+        fetch(getsubscribeUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "200") {
+                    var eventurl = "/eventsPage?publishers=" + encodeURIComponent(JSON.stringify(selectedPublishers))
+                        + "&subscriberId=" + encodeURIComponent(subscriberId.toString())
+                        + "&port=" + encodeURIComponent(requestport.toString());
+
+                    window.location.href = eventurl;
+                } else {
+                    alert("Subscription failed!");
+                }
+            })
+            .catch(error => {
+                console.error('Error in subscription request:', error);
+                alert("Error in subscription request!");
+            });
+    }
+
+
+    // Call getPublishers when the page loads
+    $(document).ready(function () {
+        getPublishers();
+    });
+</script>
+
+</body>
+</html>

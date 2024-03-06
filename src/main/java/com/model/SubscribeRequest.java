@@ -8,6 +8,7 @@ public class SubscribeRequest {
     private List<String> selectedPublishers;
     private String subscriberUrl;
     private int subscriberId;
+    private int port;
 
     public int getSubscriberId() {
         return subscriberId;
@@ -31,5 +32,13 @@ public class SubscribeRequest {
 
     public void setSubscriberUrl(String subscriberUrl) {
         this.subscriberUrl = subscriberUrl;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }

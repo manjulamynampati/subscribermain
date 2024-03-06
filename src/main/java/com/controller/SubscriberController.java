@@ -5,6 +5,7 @@ import com.model.EventData;
 import com.model.SubscribeRequest;
 import com.model.UnsubscribeRequest;
 import com.service.SubscriberService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,9 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -19,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 
 @RestController
@@ -38,7 +43,6 @@ public class SubscriberController {
     private String filePath;
 
     // need to verify this part
-    private String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
 
 
     RestTemplate restTemplate = new RestTemplate();
@@ -49,28 +53,64 @@ public class SubscriberController {
     @GetMapping(value = "/getPublishers")
     public ResponseEntity<List<String>> getPublishers() {
 
+        String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
+        StringBuilder response = new StringBuilder();
+
         List<String> publisherList = new ArrayList<>();
 
         try {
 
 
             String appendedUrl = brokerUrl + "/getPublishers";
-            System.out.println("Appended URL in : " + appendedUrl);
+            System.out.println("Sending request to lead broker for active publishers:::::  : " + appendedUrl);
+            ParameterizedTypeReference<List<String>> responseType = new ParameterizedTypeReference<List<String>>() {};
 
-            ResponseEntity<List<String>> responseEntity = restTemplate.exchange(
-                    brokerUrl, HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<String>>() {});
+
+            ResponseEntity<List<String>> responseEntity  = restTemplate.exchange(
+                    appendedUrl, HttpMethod.GET, null, responseType);
 
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
-
                 publisherList = responseEntity.getBody();
                 for (String pub : publisherList) {
                     System.out.println("publisher in publisherList: " + pub);
                 }
-
-            }else {
-                throw new IOException("Failed to fetch publishers. status Code : " + responseEntity.getStatusCode());
+            }else{
+                System.out.println("Request failed with status code: " + responseEntity.getStatusCodeValue());
             }
+//            URL url = new URL(appendedUrl);
+//
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestMethod("GET");
+//
+//            int responseCode = connection.getResponseCode();
+//            System.out.println("Received Response code from Lead Broker ::::: " + responseCode);
+//
+//
+//            if (responseCode == HttpURLConnection.HTTP_OK) {
+//
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    response.append(line);
+//                }
+//                reader.close();
+//                System.out.println("Response body: " + response.toString());
+//                connection.disconnect();
+//                String[] topics = response.toString().split(",");
+//
+//                for (int i = 0; i < topics.length; i++) {
+//                    topics[i] = topics[i].replaceAll("[^a-zA-Z0-9]", "");
+//                }
+//
+//                publisherList = new ArrayList<>(Arrays.asList(topics));
+//                for (String pub : publisherList) {
+//                    System.out.println("publisher in publisherList: " + pub);
+//                }
+
+//            }else {
+//                throw new IOException("Failed to fetch topics. Response Code: " + responseCode);
+//            }
+
 
 
         } catch (Exception e) {
@@ -84,6 +124,8 @@ public class SubscriberController {
     @PostMapping(value = "/subscribe")
     public String subscribe(@RequestBody SubscribeRequest subscribeRequest) {
 
+        String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
+
         List<String> selectedPublishers = subscribeRequest.getSelectedPublishers();
 
         SubscriberModel subscriber = new SubscriberModel();
@@ -91,6 +133,7 @@ public class SubscriberController {
         subscriber.setSubscriberId(subscribeRequest.getSubscriberId());
         subscriber.setPublishers(selectedPublishers);
         subscriber.setUrl(subscribeRequest.getSubscriberUrl());
+        subscriber.setPort(subscribeRequest.getPort());
 
         HttpStatus httpStatus = subscriberService.subscribe(subscriber,brokerUrl);
         System.out.println(httpStatus.value());
@@ -101,6 +144,8 @@ public class SubscriberController {
     @PostMapping(value = "/unsubscribe")
     public String unsubscribe(@RequestBody UnsubscribeRequest request) {
 
+        String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
+
         List<String> selectedPublishers = request.getSelectedPublishers();
 
         SubscriberModel subscriber = new SubscriberModel();
@@ -108,6 +153,8 @@ public class SubscriberController {
         subscriber.setSubscriberId(request.getSubscriberId());
         subscriber.setPublishers(selectedPublishers);
         subscriber.setUrl(request.getUnsubscribeUrl());
+        subscriber.setPort(request.getPort());
+
 
         HttpStatus httpStatus = subscriberService.unsubscribe(subscriber,brokerUrl);
         System.out.println(httpStatus.value());
