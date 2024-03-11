@@ -1,5 +1,6 @@
 package com.core;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -28,11 +29,15 @@ public class Subscriber {
 @Controller
 class HomeController {
 
+    @Value("${brokerIp}")
+    private String brokerIp;
+
     @GetMapping("/home")
     public String home(Model model) {
         String privateIpAddress = EC2MetadataUtils.getInstanceInfo().getPrivateIp();
-        //String privateIpAddress = "192.168.4.26";
+       // String privateIpAddress = "192.168.4.26";
         model.addAttribute("privateIpAddress", privateIpAddress);
+        model.addAttribute("brokerIp", brokerIp);
         return "home";
     }
 

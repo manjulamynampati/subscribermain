@@ -9,52 +9,14 @@
     <option name="showLibraryBeans" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b88090e-6195-4fa9-aea6-0ad514044657" name="Default Changelist" comment="Subscriber module Version-5. Expect slight changes....">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3/gc.properties" beforeDir="false" />
+    <list default="true" id="4b88090e-6195-4fa9-aea6-0ad514044657" name="Default Changelist" comment="Subscriber module Version-6. Expect slight changes....">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/Subscriber.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/controller/SubscriberController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/model/SubscriberModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/service/SubscriberService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ServiceImpl/SubscriberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/ServiceImpl/SubscriberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/Subscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/EventsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/controller/EventsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/SubscriberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/controller/SubscriberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/model/EventData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/model/EventData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/model/SubscribeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/model/SubscribeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/model/SubscriberModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/model/SubscriberModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/model/UnsubscribeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/model/UnsubscribeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/service/SubscriberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/service/SubscriberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/core/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/Subscriber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/unsubscribePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/unsubscribePage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -577,7 +539,7 @@
       <workItem from="1710125291600" duration="5122000" />
       <workItem from="1710136737566" duration="2322000" />
       <workItem from="1710172213444" duration="2128000" />
-      <workItem from="1710181109696" duration="3914000" />
+      <workItem from="1710181109696" duration="5752000" />
     </task>
     <task id="LOCAL-00001" summary="Subscriber module Version-1. Expect slight changes....">
       <created>1709246892315</created>
@@ -628,7 +590,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709711679080</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Subscriber module Version-6. Expect slight changes....">
+      <option name="closed" value="true" />
+      <created>1710185447863</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710185447863</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -702,7 +672,8 @@
     <MESSAGE value="Subscriber module Version-3. Expect slight changes...." />
     <MESSAGE value="Subscriber module Version-4. Expect slight changes...." />
     <MESSAGE value="Subscriber module Version-5. Expect slight changes...." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subscriber module Version-5. Expect slight changes...." />
+    <MESSAGE value="Subscriber module Version-6. Expect slight changes...." />
+    <option name="LAST_COMMIT_MESSAGE" value="Subscriber module Version-6. Expect slight changes...." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -67,20 +67,18 @@
 <script th:inline="javascript">
 
 
-
-
     const subscriberId = 1; // change for second ec2 instance
-    var requestport = 8080; // change for second ec2 instance
-    var requesturl = [[${privateIpAddress}]]; // change for second ec2 instance
+    var requestport = 8080;
+    var requesturl = [[${privateIpAddress}]];
 
-    //var subscriberUrl = 'http://localhost:8081';
-
-    var subscriberUrl = 'http://' + requesturl +':8080';  //need to change for respective subscriber ec2 instance
-
-    var getPublishersUrl = subscriberUrl + '/getPublishers';
-
+    var subscriberUrl = 'http://' + requesturl +':8080';
     var getsubscribeUrl = subscriberUrl + '/subscribe';
 
+    var brokerIp = [[${brokerIp}]];
+    var brokerurl = 'http://' + brokerIp +':8080';
+    var getPublishersUrl = brokerurl + '/getPublishers';
+
+    //var subscriberUrl = 'http://localhost:8081';
 
 
     // Function to populate publishers list
