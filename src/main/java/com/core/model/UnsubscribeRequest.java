@@ -1,22 +1,13 @@
-package com.model;
-
+package com.core.model;
 
 import java.util.List;
 
-public class SubscribeRequest {
+public class UnsubscribeRequest {
 
     private List<String> selectedPublishers;
-    private String subscriberUrl;
+    private String unsubscribeUrl;
     private int subscriberId;
     private int port;
-
-    public int getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
-    }
 
     public List<String> getSelectedPublishers() {
         return selectedPublishers;
@@ -26,12 +17,20 @@ public class SubscribeRequest {
         this.selectedPublishers = selectedPublishers;
     }
 
-    public String getSubscriberUrl() {
-        return subscriberUrl;
+    public String getUnsubscribeUrl() {
+        return unsubscribeUrl;
     }
 
-    public void setSubscriberUrl(String subscriberUrl) {
-        this.subscriberUrl = subscriberUrl;
+    public void setUnsubscribeUrl(String unsubscribeUrl) {
+        this.unsubscribeUrl = unsubscribeUrl;
+    }
+
+    public int getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
     public int getPort() {

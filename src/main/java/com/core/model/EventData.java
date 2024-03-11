@@ -1,10 +1,10 @@
-package com.model;
+package com.core.model;
 
 public class EventData {
 
     private int eventId;
     private String occasion;
-    private String publisherName;
+    private String publisherId;
     private String eventLocation;
     private String message;
 
@@ -24,12 +24,12 @@ public class EventData {
         this.occasion = occasion;
     }
 
-    public String getPublisherName() {
-        return publisherName;
+    public String getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisherName(String publisherName) {
-        this.publisherName = publisherName;
+    public void setPublisherId(String publisherId) {
+        this.publisherId = publisherId;
     }
 
     public String getEventLocation() {

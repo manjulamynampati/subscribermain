@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscriber Home Page</title>
+    <title>com.core.Subscriber Home Page</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
         body {
@@ -64,17 +64,22 @@
 <button onclick="subscribe()">Subscribe</button>
 </div>
 
-<script>
+<script th:inline="javascript">
 
-    var subscriberUrl = 'http://192.168.4.26:8081';  //need to change for respective subscriber ec2 instance
+
+
+
+    const subscriberId = 1; // change for second ec2 instance
+    var requestport = 8080; // change for second ec2 instance
+    var requesturl = [[${privateIpAddress}]]; // change for second ec2 instance
+
+    //var subscriberUrl = 'http://localhost:8081';
+
+    var subscriberUrl = 'http://' + requesturl +':8080';  //need to change for respective subscriber ec2 instance
 
     var getPublishersUrl = subscriberUrl + '/getPublishers';
 
     var getsubscribeUrl = subscriberUrl + '/subscribe';
-
-    const subscriberId = 1; // change for second ec2 instance
-    var requestport = 8081; // change for second ec2 instance
-    var requesturl = '192.168.4.26'; // change for second ec2 instance
 
 
 

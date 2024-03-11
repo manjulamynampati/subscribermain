@@ -1,5 +1,4 @@
-
-package com;
+package com.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.amazonaws.util.EC2MetadataUtils;
+import org.springframework.ui.Model;
 
 
 @SpringBootApplication
@@ -29,7 +29,10 @@ public class Subscriber {
 class HomeController {
 
     @GetMapping("/home")
-    public String home() {
+    public String home(Model model) {
+        String privateIpAddress = EC2MetadataUtils.getInstanceInfo().getPrivateIp();
+        //String privateIpAddress = "192.168.4.26";
+        model.addAttribute("privateIpAddress", privateIpAddress);
         return "home";
     }
 

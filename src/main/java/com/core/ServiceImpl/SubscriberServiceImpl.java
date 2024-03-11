@@ -1,20 +1,18 @@
-package com.ServiceImpl;
-import com.model.EventData;
+package com.core.ServiceImpl;
 
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import com.service.SubscriberService;
-import org.springframework.http.*;
+import com.core.model.SubscriberModel;
+import com.core.model.EventData;
+import com.core.service.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.model.SubscriberModel;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 @Service
@@ -29,13 +27,12 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public HttpStatus subscribe(SubscriberModel subscriber, String brokerUrl) {
-
-        System.out.println("=======Subscriber details to be sent to broker====");
-        System.out.println("Subscriber id :::::: "+ subscriber.getSubscriberId());
-        System.out.println("selected publishers ::::::: "+ subscriber.getPublishers().toString());
-        System.out.println("subscriber url ::::::: "+ subscriber.getUrl());
-        System.out.println("subscriber port ::::::: "+ subscriber.getPort());
-        System.out.println("=======Sending request to broker to subscribe for ===="+ subscriber.getSubscriberId());
+        System.out.println("=======com.core.Subscriber details to be sent to broker====");
+        System.out.println("com.core.Subscriber id :::::: " + subscriber.getSubscriberId());
+        System.out.println("selected publishers ::::::: " + subscriber.getPublishers().toString());
+        System.out.println("subscriber url ::::::: " + subscriber.getUrl());
+        System.out.println("subscriber port ::::::: " + subscriber.getPort());
+        System.out.println("=======Sending request to broker to subscribe for ====" + subscriber.getSubscriberId());
 
         String url = brokerUrl + "/subscribe";
 
@@ -49,7 +46,7 @@ public class SubscriberServiceImpl implements SubscriberService {
                     HttpMethod.POST, req, HttpStatus.class);
 
 
-            HttpStatus statusCode = responseEntity.getStatusCode();
+            HttpStatus statusCode = responseEntity.getBody();
             System.out.println("Received response from broker with status code: " + statusCode);
             return statusCode;
 
@@ -58,8 +55,6 @@ public class SubscriberServiceImpl implements SubscriberService {
             System.out.println("An error occurred while communicating with the broker: " + e.getMessage());
             throw new RuntimeException("An error occurred while communicating with the broker", e);
         }
-
-
     }
 
 
@@ -67,11 +62,11 @@ public class SubscriberServiceImpl implements SubscriberService {
     public HttpStatus unsubscribe(SubscriberModel subscriber, String brokerUrl) {
 
         System.out.println("=======Unsubscriber details to be sent to broker====");
-        System.out.println("Subscriber id :::::: "+ subscriber.getSubscriberId());
-        System.out.println("selected publishers ::::::: "+ subscriber.getPublishers().toString());
-        System.out.println("subscriber url ::::::: "+ subscriber.getUrl());
-        System.out.println("subscriber port :::::: "+ subscriber.getPort());
-        System.out.println("=======Sending request to broker to subscribe for ===="+ subscriber.getSubscriberId());
+        System.out.println("com.core.Subscriber id :::::: " + subscriber.getSubscriberId());
+        System.out.println("selected publishers ::::::: " + subscriber.getPublishers().toString());
+        System.out.println("subscriber url ::::::: " + subscriber.getUrl());
+        System.out.println("subscriber port :::::: " + subscriber.getPort());
+        System.out.println("=======Sending request to broker to subscribe for ====" + subscriber.getSubscriberId());
 
         String unsubscribeUrl = brokerUrl + "/unsubscribe";
 
@@ -85,7 +80,7 @@ public class SubscriberServiceImpl implements SubscriberService {
                     HttpMethod.POST, request, HttpStatus.class);
 
 
-            HttpStatus statusCode = responseEntity.getStatusCode();
+            HttpStatus statusCode = responseEntity.getBody();
             System.out.println("Received response for unsubscribe from broker with status code: " + statusCode);
             return statusCode;
 
@@ -105,7 +100,7 @@ public class SubscriberServiceImpl implements SubscriberService {
         System.out.println("=======Received Events from broker===========");
         System.out.println("=============================================");
         System.out.println("Event Id : " + event.getEventId());
-        System.out.println("PublisherName : " + event.getPublisherName());
+        System.out.println("PublisherName : " + event.getPublisherId());
         System.out.println("Occasion : " + event.getOccasion());
         System.out.println("Event Location : " + event.getEventLocation());
         System.out.println("Message : " + event.getMessage());
@@ -121,7 +116,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
             Files.write(path,
                     (event.getEventId() + "," +
-                            event.getPublisherName() + "," +
+                            event.getPublisherId() + "," +
                             event.getOccasion() + "," +
                             event.getEventLocation() + "," +
                             event.getMessage() +
@@ -135,7 +130,6 @@ public class SubscriberServiceImpl implements SubscriberService {
             throw new RuntimeException(e);
 
         }
-
 
 
     }

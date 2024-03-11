@@ -1,10 +1,10 @@
-package com.controller;
+package com.core.controller;
 
-import com.model.SubscriberModel;
-import com.model.EventData;
-import com.model.SubscribeRequest;
-import com.model.UnsubscribeRequest;
-import com.service.SubscriberService;
+import com.core.model.SubscriberModel;
+import com.core.model.EventData;
+import com.core.model.SubscribeRequest;
+import com.core.model.UnsubscribeRequest;
+import com.core.service.SubscriberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,19 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class SubscriberController {
 
 
@@ -198,7 +195,7 @@ public class SubscriberController {
                 EventData event = new EventData();
 
                 event.setEventId(Integer.parseInt(eventDetails[0]));
-                event.setPublisherName(eventDetails[1]);
+                event.setPublisherId(eventDetails[1]);
                 event.setOccasion(eventDetails[2]);
                 event.setEventLocation(eventDetails[3]);
                 event.setMessage(eventDetails[4]);

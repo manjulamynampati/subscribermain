@@ -1,9 +1,9 @@
-package com.service;
+package com.core.service;
 
-import com.model.EventData;
+import com.core.model.EventData;
+import com.core.model.SubscriberModel;
 import org.springframework.stereotype.Repository;
 import org.springframework.http.HttpStatus;
-import com.model.SubscriberModel;
 
 @Repository
 public interface SubscriberService {
