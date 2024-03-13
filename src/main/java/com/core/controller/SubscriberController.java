@@ -18,8 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @RestController
@@ -43,7 +42,7 @@ public class SubscriberController {
 
 
     RestTemplate restTemplate = new RestTemplate();
-
+    private static Map<String, Integer> eventPublisherMap = new HashMap<>();
 
 
 
@@ -172,6 +171,7 @@ public class SubscriberController {
         List<EventData> eventDataList = new ArrayList<>();
         Path path = Paths.get(filePath);
 
+
         try {
 
 
@@ -180,30 +180,40 @@ public class SubscriberController {
                 return new ArrayList<>();
             }
 
+
+
+
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             return new ArrayList<>();
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
+
             String line;
             while ((line = br.readLine()) != null) {
 
                 // 1,HandBag,thanksgiving,Sunnyvale,salesmessage
 
                 String[] eventDetails = line.split(",");
-                EventData event = new EventData();
 
-                event.setEventId(Integer.parseInt(eventDetails[0]));
-                event.setPublisherId(eventDetails[1]);
-                event.setOccasion(eventDetails[2]);
-                event.setEventLocation(eventDetails[3]);
-                event.setMessage(eventDetails[4]);
-                eventDataList.add(event);
+                int eventId = Integer.parseInt(eventDetails[0]);
+                String publisherId = eventDetails[1];
 
+                if (!eventPublisherMap.getOrDefault(publisherId,0).equals(eventId)) {
+                    EventData event = new EventData();
+                    event.setEventId(eventId);
+                    event.setPublisherId(eventDetails[1]);
+                    event.setOccasion(eventDetails[2]);
+                    event.setEventLocation(eventDetails[3]);
+                    event.setMessage(eventDetails[4]);
+                    eventDataList.add(event);
 
+                    eventPublisherMap.put(publisherId,eventId);
+                }
 
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

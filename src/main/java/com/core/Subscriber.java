@@ -32,12 +32,16 @@ class HomeController {
     @Value("${brokerIp}")
     private String brokerIp;
 
+    @Value("${subscriberIp}")
+    private String subscriberIp;
+
     @GetMapping("/home")
     public String home(Model model) {
         String privateIpAddress = EC2MetadataUtils.getInstanceInfo().getPrivateIp();
-       // String privateIpAddress = "192.168.4.26";
+        //String privateIpAddress = "192.168.4.26";
         model.addAttribute("privateIpAddress", privateIpAddress);
         model.addAttribute("brokerIp", brokerIp);
+        model.addAttribute("subscriberIp", subscriberIp);
         return "home";
     }
 

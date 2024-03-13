@@ -69,9 +69,11 @@
 
     const subscriberId = 1; // change for second ec2 instance
     var requestport = 8080;
-    var requesturl = [[${privateIpAddress}]];
+    var requesturl = [[${privateIpAddress}]]; //subscriber private ip from ec2
+    var subspublic = [[${subscriberIp}]];
 
-    var subscriberUrl = 'http://' + requesturl +':8080';
+
+    var subscriberUrl = 'http://' + subspublic +':8080';  // subscriber public ip from client hit
     var getsubscribeUrl = subscriberUrl + '/subscribe';
 
     var brokerIp = [[${brokerIp}]];
@@ -137,6 +139,8 @@
                 if (data === "200") {
                     var eventurl = "/eventsPage?publishers=" + encodeURIComponent(JSON.stringify(selectedPublishers))
                         + "&subscriberId=" + encodeURIComponent(subscriberId.toString())
+                        + "&subIp=" + encodeURIComponent(subspublic)
+                        + "&subPrivateIp=" + encodeURIComponent(requesturl)
                         + "&port=" + encodeURIComponent(requestport.toString());
 
                     window.location.href = eventurl;

@@ -69,6 +69,8 @@
     const selectedPublishers = JSON.parse(decodeURIComponent(publishersParam));
     const subscriberId = urlParams.get('subscriberId');
     const requestport = urlParams.get('port');
+    const subIp = urlParams.get('subIp');
+    const subPrivateIp = urlParams.get('subPrivateIp');
 
     console.log('Subscriber ID:', subscriberId);
     console.log(selectedPublishers);
@@ -106,10 +108,9 @@
 
         // Replace the ec2 subscriber URL
 
-        var ec2url = 'http://192.168.4.26:8081'; //need to change for respective subscriber ec2 instance
-        var getUnsubscribeUrl = ec2url + '/unsubscribe';
+        var unsuburl = subPrivateIp; // change for second ec2 instance
 
-        var unsuburl = '192.168.4.26'; // change for second ec2 instance
+        const getUnsubscribeUrl = 'http://' +subIp + ':8080/unsubscribe';
 
         var data = {
 
