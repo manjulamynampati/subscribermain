@@ -21,8 +21,7 @@
             console.log('Subscriber ID:', subscriberId);
             console.log(selectedPublishers);
 
-            //change url to real one i.e. subscriber url and for respective ec2 instance
-            //const url = 'http://192.168.4.26:8081/events';
+
             const url = 'http://' +subIp + ':8080/events';
 
             function fetchDataAndRender() {

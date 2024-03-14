@@ -38,7 +38,7 @@ public class SubscriberController {
     @Value("${filepath}")
     private String filePath;
 
-    // need to verify this part
+
 
 
     RestTemplate restTemplate = new RestTemplate();
@@ -49,6 +49,7 @@ public class SubscriberController {
     @GetMapping(value = "/getPublishers")
     public ResponseEntity<List<String>> getPublishers() {
 
+        long startTime = System.currentTimeMillis();
         String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
         StringBuilder response = new StringBuilder();
 
@@ -73,45 +74,16 @@ public class SubscriberController {
             }else{
                 System.out.println("Request failed with status code: " + responseEntity.getStatusCodeValue());
             }
-//            URL url = new URL(appendedUrl);
-//
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//
-//            int responseCode = connection.getResponseCode();
-//            System.out.println("Received Response code from Lead Broker ::::: " + responseCode);
-//
-//
-//            if (responseCode == HttpURLConnection.HTTP_OK) {
-//
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                String line;
-//                while ((line = reader.readLine()) != null) {
-//                    response.append(line);
-//                }
-//                reader.close();
-//                System.out.println("Response body: " + response.toString());
-//                connection.disconnect();
-//                String[] topics = response.toString().split(",");
-//
-//                for (int i = 0; i < topics.length; i++) {
-//                    topics[i] = topics[i].replaceAll("[^a-zA-Z0-9]", "");
-//                }
-//
-//                publisherList = new ArrayList<>(Arrays.asList(topics));
-//                for (String pub : publisherList) {
-//                    System.out.println("publisher in publisherList: " + pub);
-//                }
-
-//            }else {
-//                throw new IOException("Failed to fetch topics. Response Code: " + responseCode);
-//            }
-
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime; // ms
+        System.out.println("Total Time taken to get publishers from the broker in ms" + timeTaken);
+
 
         return ResponseEntity.ok().body(publisherList);
     }
@@ -119,7 +91,7 @@ public class SubscriberController {
 
     @PostMapping(value = "/subscribe")
     public String subscribe(@RequestBody SubscribeRequest subscribeRequest) {
-
+        long startTime = System.currentTimeMillis();
         String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
 
         List<String> selectedPublishers = subscribeRequest.getSelectedPublishers();
@@ -133,13 +105,17 @@ public class SubscriberController {
 
         HttpStatus httpStatus = subscriberService.subscribe(subscriber,brokerUrl);
         System.out.println(httpStatus.value());
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime; // ms
+        System.out.println("Total Time taken by subscriber to get subscribed to the publisher in the broker in ms" + timeTaken);
+
         return String.valueOf(Integer.parseInt(String.valueOf(httpStatus.value())));
     }
 
 
     @PostMapping(value = "/unsubscribe")
     public String unsubscribe(@RequestBody UnsubscribeRequest request) {
-
+        long startTime = System.currentTimeMillis();
         String brokerUrl = "http://" + brokerIp + ":" + ec2Port;
 
         List<String> selectedPublishers = request.getSelectedPublishers();
@@ -154,12 +130,16 @@ public class SubscriberController {
 
         HttpStatus httpStatus = subscriberService.unsubscribe(subscriber,brokerUrl);
         System.out.println(httpStatus.value());
+        long endTime = System.currentTimeMillis();
+        long timeTaken = endTime - startTime; // ms
+        System.out.println("Total Time taken by subscriber to get unsubscribed to the publisher in the broker in ms" + timeTaken);
         return String.valueOf(Integer.parseInt(String.valueOf(httpStatus.value())));
     }
 
 
     @PostMapping(value = "/notify")
     public ResponseEntity<HttpStatus> notify(@RequestBody EventData event) {
+
         HttpStatus status = subscriberService.notify(event);
         //Ack
         return ResponseEntity.ok().body(status);
@@ -193,7 +173,7 @@ public class SubscriberController {
             String line;
             while ((line = br.readLine()) != null) {
 
-                // 1,HandBag,thanksgiving,Sunnyvale,salesmessage
+
 
                 String[] eventDetails = line.split(",");
 

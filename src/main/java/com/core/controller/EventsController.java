@@ -9,6 +9,8 @@ public class EventsController {
     @GetMapping("/eventsPage")
     public String eventsPage(@RequestParam(name = "publishers") String publishers,
                              @RequestParam(name = "subscriberId") String subscriberId,
+                             @RequestParam(name = "subIp") String subIp,
+                             @RequestParam(name = "subPrivateIp") String subPrivateIp,
                              @RequestParam(name = "port") String port) {
 
         return "eventsPage";
@@ -17,6 +19,8 @@ public class EventsController {
     @GetMapping("/unsubscribePage")
     public String unsubscribePage(@RequestParam(name = "publishers") String publishers,
                                   @RequestParam(name = "subscriberId") String subscriberId,
+                                  @RequestParam(name = "subIp") String subIp,
+                                  @RequestParam(name = "subPrivateIp") String subPrivateIp,
                                   @RequestParam(name = "port") String port) {
 
         return "unsubscribePage";
