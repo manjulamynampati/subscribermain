@@ -9,18 +9,12 @@
     <option name="showLibraryBeans" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b88090e-6195-4fa9-aea6-0ad514044657" name="Default Changelist" comment="ec2 changes">
+    <list default="true" id="4b88090e-6195-4fa9-aea6-0ad514044657" name="Default Changelist" comment="Metrics Changes">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/core/ServiceImpl/SubscriberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/ServiceImpl/SubscriberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/core/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/Subscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/core/controller/SubscriberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/core/controller/SubscriberController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/eventsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/eventsPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/unsubscribePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/unsubscribePage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -546,7 +540,14 @@
       <workItem from="1710181109696" duration="12757000" />
       <workItem from="1710217021933" duration="2859000" />
       <workItem from="1710220644331" duration="7689000" />
-      <workItem from="1710300711383" duration="3784000" />
+      <workItem from="1710300711383" duration="4219000" />
+      <workItem from="1710353060933" duration="1703000" />
+      <workItem from="1710363256016" duration="96000" />
+      <workItem from="1710392135048" duration="1212000" />
+      <workItem from="1710397155159" duration="2604000" />
+      <workItem from="1710444732479" duration="1414000" />
+      <workItem from="1710447313424" duration="70000" />
+      <workItem from="1710451009111" duration="108000" />
     </task>
     <task id="LOCAL-00001" summary="Subscriber module Version-1. Expect slight changes....">
       <created>1709246892315</created>
@@ -613,7 +614,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710190216435</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="ec2 changes">
+      <option name="closed" value="true" />
+      <created>1710309511929</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1710309511929</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Metrics Changes">
+      <option name="closed" value="true" />
+      <created>1710399381497</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1710399381498</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -689,7 +706,8 @@
     <MESSAGE value="Subscriber module Version-5. Expect slight changes...." />
     <MESSAGE value="Subscriber module Version-6. Expect slight changes...." />
     <MESSAGE value="ec2 changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="ec2 changes" />
+    <MESSAGE value="Metrics Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Metrics Changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

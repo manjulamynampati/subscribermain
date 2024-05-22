@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Page</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var publishersParam = urlParams.get('publishers');
+
+            const selectedPublishers = JSON.parse(decodeURIComponent(publishersParam));
+            const subscriberId = urlParams.get('subscriberId');
+            const requestport = urlParams.get('port');
+            const subIp = urlParams.get('subIp');
+            const subPrivateIp = urlParams.get('subPrivateIp');
+
+            console.log('Subscriber ID:', subscriberId);
+            console.log(selectedPublishers);
+
+
+            const url = 'http://' +subIp + ':8080/events';
+
+            function fetchDataAndRender() {
+                // Make an AJAX request to your Java code endpoint
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                            // Handle the received data and update the HTML
+                            updateHTML(data);
+                    })
+                    .catch(error => {
+                            console.error('Error fetching data:', error);
+                    });
+            }
+
+            // Function to update the HTML with the received data
+            function updateHTML(data) {
+                // Assuming you have a div with id "eventsContainer" to display the events
+                var eventsContainer = document.getElementById('eventsContainer');
+
+              
+
+                // Iterate through the received data and create HTML elements
+                data.forEach(event => {
+                    var eventElement = document.createElement('div');
+                eventElement.innerHTML = `
+                        <strong>Publisher Name:</strong> ${event.publisherId}<br>
+                        <strong>Event ID:</strong> ${event.eventId}<br>
+                        <strong>Occasion:</strong> ${event.occasion}<br>
+                        <strong>Event Location:</strong> ${event.eventLocation}<br>
+                        <strong>Message:</strong> ${event.message}<br>
+                        <hr>
+                    `;
+                eventsContainer.appendChild(eventElement);
+                });
+            }
+
+            // Set interval to fetch data every 1 minute (60,000 milliseconds)
+            setInterval(fetchDataAndRender, 30000);
+
+            // Initial fetch when the page loads
+            fetchDataAndRender();
+
+            // Function to redirect to the Unsubscribe page
+            function redirectToUnsubscribePage() {
+
+
+                const unsubscribeUrl = "/unsubscribePage?publishers=" + encodeURIComponent(JSON.stringify(selectedPublishers))
+                    + "&subscriberId=" + encodeURIComponent(subscriberId.toString())
+                    + "&subIp=" + encodeURIComponent(subIp)
+                    + "&subPrivateIp=" + encodeURIComponent(subPrivateIp)
+                    + "&port=" + encodeURIComponent(requestport.toString());
+
+                window.location.href = unsubscribeUrl;
+            }
+
+            //  button to redirect to the Unsubscribe page
+            var unsubscribeButton = document.createElement('button');
+            unsubscribeButton.textContent = 'Want to Unsubscribe from Publishers ?';
+            unsubscribeButton.addEventListener('click', redirectToUnsubscribePage);
+            document.body.appendChild(unsubscribeButton);
+
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: auto;
+            background-color: beige;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        #eventsContainer {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Events</h1>
+<div id="eventsContainer">
+    <!-- Events will be displayed here -->
+</div>
+</body>
+</html>
